@@ -5,27 +5,30 @@ services:
       context: ../..
       args:
         INSTALL_BNB: false
-        INSTALL_VLLM: false
-        INSTALL_DEEPSPEED: false
+        INSTALL_VLLM: true
+        INSTALL_DEEPSPEED: true
         INSTALL_FLASHATTN: false
         INSTALL_LIGER_KERNEL: false
         INSTALL_HQQ: false
         INSTALL_EETQ: false
-        PIP_INDEX: https://pypi.org/simple
+        PIP_INDEX: https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
     container_name: llamafactory
     volumes:
-      - ../../hf_cache:/root/.cache/huggingface
-      - ../../ms_cache:/root/.cache/modelscope
-      - ../../om_cache:/root/.cache/openmind
-      - ../../data:/app/data
-      - ../../output:/app/output
+      - /mnt/huawei/huawei/log_analysis/experiments:/app/data
+      - /mnt/nfs/fay/llamafactory/cache:/app/cache
+      - /mnt/nfs/fay/llamafactory/saves:/app/saves
+      - /mnt/nfs/fay/llamafactory/models:/root/.cache
+      - /mnt/huawei/huawei/log_analysis:/app/huawei
+      # - ../../output:/app/output
     ports:
-      - "7860:7860"
-      - "8000:8000"
+      - "7862:7860"
+      - "8002:8000"
     ipc: host
     tty: true
     stdin_open: true
     command: bash
+    environment:
+      USE_MODELSCOPE_HUB: 1
     deploy:
       resources:
         reservations:

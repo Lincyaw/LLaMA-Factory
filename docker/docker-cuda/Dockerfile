@@ -70,3 +70,4 @@ EXPOSE 7860
 # Expose port 8000 for the API service
 ENV API_PORT 8000
 EXPOSE 8000
+RUN pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple modelscope 
